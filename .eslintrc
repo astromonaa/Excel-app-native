@@ -16,7 +16,8 @@
     "no-trailing-spaces": "off",
     "no-debugger": "off",
     "operator-linebreak": "off",
-    "indent": "off"
+    "indent": "off",
+    "max-len": "off"
   },
   "extends": ["eslint:recommended", "google"]
 }
