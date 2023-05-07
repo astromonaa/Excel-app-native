@@ -69,6 +69,12 @@ class Dom {
       .keys(styles)
       .forEach(style => this.$el.style[style] = styles[style])
   }
+  getStyles(styles = []) {
+    return styles.reduce((acc, style) => {
+      acc[style] = this.$el.style[style]
+      return acc
+    }, {})
+  }
   addClass(className) {
     this.$el.classList.add(className)
     return this
