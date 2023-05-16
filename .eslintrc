@@ -17,7 +17,8 @@
     "no-debugger": "off",
     "operator-linebreak": "off",
     "indent": "off",
-    "max-len": "off"
+    "max-len": "off",
+    "linebreak-style": "off"
   },
   "extends": ["eslint:recommended", "google"]
 }

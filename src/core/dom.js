@@ -12,9 +12,9 @@ class Dom {
     }
     return this.$el.outerHTML.trim()
   }
-  text(text) {
-    if (typeof text === 'string') {
-      this.$el.textContent = text;
+  text(content) {
+    if (typeof content !== 'undefined') {
+      this.$el.textContent = content;
       return this
     }
     if (this.$el.tagName.toLowerCase() === 'input') {
@@ -69,6 +69,12 @@ class Dom {
       .keys(styles)
       .forEach(style => this.$el.style[style] = styles[style])
   }
+  getStyles(styles = []) {
+    return styles.reduce((acc, style) => {
+      acc[style] = this.$el.style[style]
+      return acc
+    }, {})
+  }
   addClass(className) {
     this.$el.classList.add(className)
     return this
@@ -91,7 +97,15 @@ class Dom {
     this.$el.focus()
     return this
   }
+  attr(name, value) {
+    if (value) {
+      this.$el.setAttribute(name, value)
+      return this
+    }
+    return this.$el.getAttribute(name)
+  }
 }
+
 
 export function $(selector) {
   return new Dom(selector)
