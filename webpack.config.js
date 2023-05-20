@@ -1,8 +1,9 @@
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const htmlPlugin = require('html-webpack-plugin')
-const copyPlugin = require('copy-webpack-plugin')
-const miniCssExtractPlugin = require('mini-css-extract-plugin')
+const HtmlPlugin = require('html-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const Webpack = require('webpack')
 
 const isProd = process.env.NODE_ENV === 'production'
 const isDev = !isProd
@@ -47,20 +48,23 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new htmlPlugin({
+    new HtmlPlugin({
       template: 'index.html',
       minify: {
         removeComments: isProd,
         collapseWhitespace: isProd
       }
     }),
-    new copyPlugin({
+    new CopyPlugin({
       patterns: [
         { from: path.resolve(__dirname, 'src/favicon.ico'), to: path.resolve(__dirname, 'dist')}
       ]
     }),
-    new miniCssExtractPlugin({
+    new MiniCssExtractPlugin({
       filename: filename('css')
+    }),
+    new Webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     })
   ],
   module: {
@@ -68,7 +72,7 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          miniCssExtractPlugin.loader,
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader'
         ]
